@@ -1,19 +1,156 @@
-[gd_scene load_steps=3 format=3 uid="uid://bdsamcm2uccpd"]
+[gd_scene load_steps=11 format=3 uid="uid://bdsamcm2uccpd"]
 
-[ext_resource type="Texture2D" uid="uid://bpufkobbgchrh" path="res://sprites/player.png" id="1_uc8q5"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_7wwg3"]
+[ext_resource type="Texture2D" uid="uid://bpufkobbgchrh" path="res://assets/textures/player.png" id="2_urlse"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_maavq"]
-radius = 3.0
-height = 12.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bb5vq"]
+size = Vector2(92, 39)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_umyme"]
+size = Vector2(241, 61)
+
+[sub_resource type="Animation" id="Animation_6unyw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_fci6o"]
+resource_name = "idle_left"
+length = 1.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.8, 1.2, 1.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7, 4]
+}
+
+[sub_resource type="Animation" id="Animation_8tshf"]
+resource_name = "idle_right"
+length = 1.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.8, 1.2, 1.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [8, 9, 10, 11, 8]
+}
+
+[sub_resource type="Animation" id="Animation_ioqtp"]
+resource_name = "idle_up"
+length = 1.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.8, 1.2, 1.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [12, 13, 14, 15, 12]
+}
+
+[sub_resource type="Animation" id="Animation_qxdh6"]
+resource_name = "idle_down"
+length = 1.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.8, 1.2, 1.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_eggmo"]
+_data = {
+"RESET": SubResource("Animation_6unyw"),
+"idle_down": SubResource("Animation_qxdh6"),
+"idle_left": SubResource("Animation_fci6o"),
+"idle_right": SubResource("Animation_8tshf"),
+"idle_up": SubResource("Animation_ioqtp")
+}
 
 [node name="Player" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_7wwg3")
+damage = 50
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.499976, -8.99999)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_bb5vq")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(97.5, -17.5)
+shape = SubResource("RectangleShape2D_umyme")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -14)
-texture = ExtResource("1_uc8q5")
+scale = Vector2(4, 4)
+texture = ExtResource("2_urlse")
 hframes = 16
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -3)
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_maavq")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "idle_down"
+libraries = {
+"": SubResource("AnimationLibrary_eggmo")
+}
+
+[node name="Healthbar" type="ProgressBar" parent="."]
+modulate = Color(0.917647, 0, 0, 1)
+offset_left = -52.0
+offset_top = -93.0
+offset_right = 51.0
+offset_bottom = -66.0
+step = 0.1
+value = 100.0
+
+[node name="Gui" type="CanvasLayer" parent="."]
+
+[node name="Stamina" type="ProgressBar" parent="Gui"]
+modulate = Color(0.901961, 1, 0, 1)
+offset_left = 11.0
+offset_top = 9.0
+offset_right = 311.0
+offset_bottom = 48.0
+step = 0.1
+value = 100.0
+
+[node name="Sword" type="Panel" parent="."]
+offset_left = 10.0
+offset_top = -11.0
+offset_right = 218.0
+offset_bottom = 6.0
+rotation = -0.136461
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]

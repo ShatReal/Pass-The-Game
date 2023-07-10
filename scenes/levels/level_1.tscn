@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3 uid="uid://gabg38ijyghl"]
+
+[ext_resource type="PackedScene" uid="uid://bdsamcm2uccpd" path="res://scenes/player/player.tscn" id="1_wobjh"]
+[ext_resource type="PackedScene" uid="uid://do5qry4lwxkv1" path="res://scenes/zombies/zombie.tscn" id="2_hjpth"]
+[ext_resource type="AudioStream" uid="uid://bw1ulom8t0ovu" path="res://assets/music/song.mp3" id="3_kvn7u"]
+
+[node name="Level_1" type="Node2D"]
+metadata/_edit_horizontal_guides_ = [-82.0]
+
+[node name="Entities" type="Node2D" parent="."]
+
+[node name="player" parent="Entities" instance=ExtResource("1_wobjh")]
+position = Vector2(427, 331)
+
+[node name="zombie" parent="Entities" instance=ExtResource("2_hjpth")]
+position = Vector2(192, 216)
+color = Color(0, 0.584314, 0.223529, 1)
+
+[node name="zombie2" parent="Entities" instance=ExtResource("2_hjpth")]
+position = Vector2(859, 249)
+speed = 50
+health = 200
+damage = 40
+size = Vector2(2, 2)
+color = Color(0, 0.556863, 0.529412, 1)
+
+[node name="zombie3" parent="Entities" instance=ExtResource("2_hjpth")]
+position = Vector2(140, 478)
+speed = 200
+health = 50
+damage = 10
+size = Vector2(0.5, 0.5)
+color = Color(0.65098, 0.431373, 0.0313726, 1)
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_kvn7u")
+autoplay = true
