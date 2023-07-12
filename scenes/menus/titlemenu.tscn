@@ -64,6 +64,5 @@ flat = true
 stream = ExtResource("3_vif6c")
 pitch_scale = 1.25
 autoplay = true
-stream_paused = true
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

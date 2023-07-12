@@ -16,6 +16,8 @@ func _ready():
 	$Healthbar.value = health
 
 func _physics_process(_delta):
+	$Sword.look_at(get_global_mouse_position())
+	$Sword.position = get_global_mouse_position()
 	if can_play:
 		#Movement System
 		if Input.is_action_pressed("right"):
@@ -43,8 +45,10 @@ func _physics_process(_delta):
 				
 		if Input.is_action_just_pressed("attack"):
 			if zombie != null:
+				$Sword.play("blood")
 				zombie.health -= damage
-			
+		if Input.is_action_just_released("attack"):
+			$Sword.play("default")
 		move_and_slide()
 			
 		#Health and Stamina System

@@ -27,13 +27,16 @@ func _physics_process(_delta):
 	if health <= 0:
 		queue_free()
 
-func _on_area_2d_area_entered(area):
-	if "player" in area.get_parent().name:
-		$Timers/Attack.start()
-
-func _on_area_2d_area_exited(area):
-	if "player" in area.get_parent().name:
-		$Timers/Attack.stop()
 
 func _on_attack_timeout():
 	player.health -= damage
+
+
+
+
+func _on_area_2d_area_entered(area):
+	$Timers/Attack.start()
+
+
+func _on_area_2d_area_exited(area):
+	$Timers/Attack.stop()
