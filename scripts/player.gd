@@ -1,54 +1,55 @@
+class_name player
 extends CharacterBody2D
 
-var zombie
 
 @export var speed = 400.0
 @export var health = 100
 @export var stamina = 100
 @export var damage = 20
-
-var VELOCITY = Vector2.ZERO
+var striking = false
+var direction = Vector2.ZERO
 var can_play = true
-var can_attack = false
-
+var can_attack = true
+var hit_enemies = []
 func _ready():
 	$Healthbar.max_value = health
 	$Healthbar.value = health
 
 func _physics_process(_delta):
-	$Sword.look_at(get_global_mouse_position())
-	$Sword.position = get_global_mouse_position()
+	sword_stuff()
+	
+	
 	if can_play:
+		direction = Input.get_vector("left", "right", "up", "down").normalized()
+		velocity = lerp(velocity, direction * speed, 0.2)
+		
 		#Movement System
 		if Input.is_action_pressed("right"):
-			velocity.x = lerp(velocity.x,speed,0.2)
 			$AnimationPlayer.play("idle_right")
 		elif Input.is_action_pressed("left"):
-			velocity.x = lerp(velocity.x,-speed,0.2)
 			$AnimationPlayer.play("idle_left")
-		else:
-			velocity.x = 0
-			
+
 		if Input.is_action_pressed("up"):
-			velocity.y = lerp(velocity.y,-speed,0.2)
 			$AnimationPlayer.play("idle_up")
 		elif Input.is_action_pressed("down"):
-			velocity.y = lerp(velocity.y,speed,0.2)
 			$AnimationPlayer.play("idle_down")
-		else:
-			velocity.y = 0
 			
 		if Input.is_action_just_pressed("boost"):
 			if stamina >= 40:
 				stamina -= 40
-				velocity = velocity * 5
+				velocity = velocity * 10
 				
-		if Input.is_action_just_pressed("attack"):
-			if zombie != null:
-				$Sword.play("blood")
-				zombie.health -= damage
-		if Input.is_action_just_released("attack"):
-			$Sword.play("default")
+		if Input.is_action_just_pressed("attack") && can_attack:
+			strike()
+			can_attack = false
+			
+		if striking:
+			if $"Sword Pivot/Sword/Area2D".has_overlapping_bodies():
+				var zombie = $"Sword Pivot/Sword/Area2D".get_overlapping_bodies()[0]
+				if not zombie in hit_enemies:
+					if zombie.is_in_group("Zombies"):
+						zombie.on_hurt(damage)
+						hit_enemies.append(zombie)
 		move_and_slide()
 			
 		#Health and Stamina System
@@ -63,12 +64,21 @@ func _physics_process(_delta):
 		if stamina < 100:
 			stamina += 0.2
 
-func _on_area_2d_area_entered(area):
-	if "zombie" in area.get_parent().name:
-		can_attack = true
-		zombie = area.get_parent()
 
-func _on_area_2d_area_exited(area):
-	if "zombie" in area.get_parent().name:
-		can_attack = false
-		zombie = null
+
+func sword_stuff():
+	if not striking: $"Sword Pivot".look_at(get_global_mouse_position())
+	
+func strike():
+	$"Sword Pivot/Sword/AnimationPlayer".play("Strike")
+	striking = true
+	await get_tree().create_timer(3).timeout
+	can_attack = true
+	hit_enemies.clear()
+
+	
+
+
+func _on_animation_player_animation_finished(anim_name):
+	if anim_name == "Strike":
+		striking = false
