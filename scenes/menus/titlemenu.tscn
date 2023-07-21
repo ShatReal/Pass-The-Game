@@ -1,0 +1,107 @@
+[gd_scene load_steps=6 format=3 uid="uid://45j1r4anjvkv"]
+
+[ext_resource type="FontFile" uid="uid://ctri5frans5f2" path="res://assets/font/04B19-pA1.ttf" id="1_eru8x"]
+[ext_resource type="Script" path="res://scripts/titlemenu.gd" id="1_nwv0u"]
+[ext_resource type="AudioStream" uid="uid://bw1ulom8t0ovu" path="res://assets/music/song.mp3" id="3_vif6c"]
+[ext_resource type="Script" path="res://scripts/Button2.gd" id="4_e4uhr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5f2cb"]
+
+[node name="titlemenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nwv0u")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.431373, 0.607843, 0.686275, 1)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -332.0
+offset_top = -47.0
+offset_right = 332.0
+offset_bottom = 47.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_eru8x")
+theme_override_font_sizes/font_size = 90
+text = "Famapocalypse"
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_vif6c")
+pitch_scale = 1.25
+autoplay = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -71.0
+offset_top = -190.0
+offset_right = 71.0
+offset_bottom = -106.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_eru8x")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/focus = SubResource("StyleBoxEmpty_5f2cb")
+text = "PLAY"
+flat = true
+
+[node name="Button2" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_eru8x")
+theme_override_font_sizes/font_size = 22
+text = "How to play"
+flat = true
+script = ExtResource("4_e4uhr")
+
+[node name="how" type="MarginContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -339.0
+offset_top = -184.0
+offset_right = 339.0
+offset_bottom = 184.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="how"]
+layout_mode = 2
+color = Color(0.584314, 0.239216, 1, 1)
+
+[node name="Label" type="Label" parent="how"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_eru8x")
+theme_override_font_sizes/font_size = 24
+text = "You are a mom. You have to find food for your kid. But without getting killed by a zombi."
+autowrap_mode = 3
+
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Button2" to="VBoxContainer/Button2" method="_on_pressed"]
