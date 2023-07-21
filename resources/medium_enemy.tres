@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="enemy_resource" load_steps=2 format=3 uid="uid://b4psrsej0vimo"]
+
+[ext_resource type="Script" path="res://resources/enemy_resource.gd" id="1_ib08n"]
+
+[resource]
+script = ExtResource("1_ib08n")
+speed = 100
+health = 100
+damage = 20
+size = Vector2(1, 1)
+color = Color(0, 0.509804, 0.247059, 1)
