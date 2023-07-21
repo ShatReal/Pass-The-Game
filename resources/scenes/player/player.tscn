@@ -1,0 +1,258 @@
+[gd_scene load_steps=19 format=3 uid="uid://bdsamcm2uccpd"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_7wwg3"]
+[ext_resource type="Texture2D" uid="uid://bpufkobbgchrh" path="res://assets/textures/player.png" id="2_urlse"]
+[ext_resource type="FontFile" uid="uid://ctri5frans5f2" path="res://assets/font/04B19-pA1.ttf" id="3_hmyt7"]
+[ext_resource type="Texture2D" uid="uid://bjkwrc0jup1d6" path="res://assets/textures/Sword.png" id="3_l5rud"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bb5vq"]
+size = Vector2(92, 39)
+
+[sub_resource type="Animation" id="Animation_6unyw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_qxdh6"]
+resource_name = "idle_down"
+length = 1.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.8, 1.2, 1.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 0]
+}
+
+[sub_resource type="Animation" id="Animation_fci6o"]
+resource_name = "idle_left"
+length = 1.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.8, 1.2, 1.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7, 4]
+}
+
+[sub_resource type="Animation" id="Animation_8tshf"]
+resource_name = "idle_right"
+length = 1.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.8, 1.2, 1.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [8, 9, 10, 11, 8]
+}
+
+[sub_resource type="Animation" id="Animation_ioqtp"]
+resource_name = "idle_up"
+length = 1.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.8, 1.2, 1.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [12, 13, 14, 15, 12]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_eggmo"]
+_data = {
+"RESET": SubResource("Animation_6unyw"),
+"idle_down": SubResource("Animation_qxdh6"),
+"idle_left": SubResource("Animation_fci6o"),
+"idle_right": SubResource("Animation_8tshf"),
+"idle_up": SubResource("Animation_ioqtp")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_veotj"]
+size = Vector2(68, 128)
+
+[sub_resource type="Curve2D" id="Curve2D_i1bam"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_umyme"]
+size = Vector2(99.9889, 36.1266)
+
+[sub_resource type="Animation" id="Animation_6mm0q"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-3.14159]
+}
+
+[sub_resource type="Animation" id="Animation_g7mrs"]
+resource_name = "Strike"
+length = 0.75
+step = 0.025
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.025, 0.075, 0.125, 0.175, 0.725),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [-2.61799, -1.8326, -1.8326, -4.45059, -3.14159]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dcdcc"]
+_data = {
+"RESET": SubResource("Animation_6mm0q"),
+"Strike": SubResource("Animation_g7mrs")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_troll"]
+radius = 30.0
+height = 130.0
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+collision_layer = 3
+collision_mask = 3
+motion_mode = 1
+script = ExtResource("1_7wwg3")
+damage = 50
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.499976, -8.99999)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_bb5vq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(4, 4)
+texture = ExtResource("2_urlse")
+hframes = 16
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "idle_down"
+libraries = {
+"": SubResource("AnimationLibrary_eggmo")
+}
+
+[node name="Healthbar" type="ProgressBar" parent="."]
+modulate = Color(0.917647, 0, 0, 1)
+offset_left = -52.0
+offset_top = -93.0
+offset_right = 51.0
+offset_bottom = -66.0
+step = 0.1
+value = 100.0
+
+[node name="Gui" type="CanvasLayer" parent="."]
+
+[node name="Stamina" type="ProgressBar" parent="Gui"]
+modulate = Color(0.901961, 1, 0, 1)
+offset_left = 11.0
+offset_top = 9.0
+offset_right = 311.0
+offset_bottom = 48.0
+step = 0.1
+value = 100.0
+
+[node name="food_Label" type="Label" parent="Gui"]
+offset_left = 332.0
+offset_top = 10.0
+offset_right = 372.0
+offset_bottom = 33.0
+theme_override_fonts/font = ExtResource("3_hmyt7")
+theme_override_font_sizes/font_size = 28
+text = "Food: 0"
+
+[node name="Label" type="Label" parent="Gui"]
+offset_left = 468.0
+offset_top = 9.0
+offset_right = 780.0
+offset_bottom = 40.0
+theme_override_fonts/font = ExtResource("3_hmyt7")
+theme_override_font_sizes/font_size = 28
+text = "Kid will starve in: 30s"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="." groups=["Player Collision"]]
+collision_layer = 16
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_veotj")
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_i1bam")
+
+[node name="Sword Pivot" type="Node2D" parent="."]
+
+[node name="Sword" type="Sprite2D" parent="Sword Pivot"]
+position = Vector2(80.385, 0)
+rotation = -3.14159
+scale = Vector2(4, 4)
+texture = ExtResource("3_l5rud")
+
+[node name="Area2D" type="Area2D" parent="Sword Pivot/Sword"]
+position = Vector2(-0.11779, 3.74815)
+rotation = -3.11018
+scale = Vector2(0.25, 0.25)
+collision_layer = 16
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sword Pivot/Sword/Area2D"]
+position = Vector2(13.0564, 16.5907)
+rotation = -0.0349066
+shape = SubResource("RectangleShape2D_umyme")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sword Pivot/Sword"]
+autoplay = "RESET"
+libraries = {
+"": SubResource("AnimationLibrary_dcdcc")
+}
+
+[node name="starve" type="Timer" parent="."]
+autostart = true
+
+[node name="Area2D2" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
+shape = SubResource("CapsuleShape2D_troll")
+
+[connection signal="animation_finished" from="Sword Pivot/Sword/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="timeout" from="starve" to="." method="_on_starve_timeout"]
+[connection signal="body_entered" from="Area2D2" to="." method="_on_area_2d_2_body_entered"]
