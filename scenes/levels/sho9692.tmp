@@ -1,0 +1,79 @@
+[gd_scene load_steps=8 format=3 uid="uid://daw5rck8v748p"]
+
+[ext_resource type="Script" path="res://scenes/levels/shooter_level_1.gd" id="1_mxt6t"]
+[ext_resource type="Texture2D" uid="uid://dmfuo1yo2ad2u" path="res://assets/textures/Grass.png" id="1_sh4xg"]
+[ext_resource type="PackedScene" uid="uid://bv3iyr41x7r4m" path="res://scenes/levels/baby.tscn" id="3_fsrno"]
+[ext_resource type="Script" path="res://scenes/levels/baby.gd" id="4_1s26x"]
+[ext_resource type="PackedScene" uid="uid://of23kxh4cy0a" path="res://scenes/player/shooter_player.tscn" id="4_s3uo3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qxhxk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_osdap"]
+bg_color = Color(0, 1, 0.6, 1)
+
+[node name="shooter_level_1" type="Node2D"]
+script = ExtResource("1_mxt6t")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -1106.0
+offset_top = -725.0
+offset_right = 43.0
+offset_bottom = 19.0
+scale = Vector2(2, 2)
+texture = ExtResource("1_sh4xg")
+stretch_mode = 1
+
+[node name="EnemyTimer" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="Baby" parent="." groups=["baby", "family"] instance=ExtResource("3_fsrno")]
+position = Vector2(1, -1)
+script = ExtResource("4_1s26x")
+
+[node name="shooter_player" parent="." instance=ExtResource("4_s3uo3")]
+position = Vector2(0, 85)
+
+[node name="Gui" type="CanvasLayer" parent="."]
+
+[node name="BabyHealth" type="ProgressBar" parent="Gui"]
+offset_left = -142.0
+offset_top = -228.0
+offset_right = 149.0
+offset_bottom = -168.0
+theme_override_styles/background = SubResource("StyleBoxFlat_qxhxk")
+theme_override_styles/fill = SubResource("StyleBoxFlat_osdap")
+value = 100.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="Gui/BabyHealth"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 99.0
+offset_top = 13.0
+offset_right = 191.0
+offset_bottom = 39.0
+text = "baby health"
+
+[node name="player_health" type="ProgressBar" parent="Gui"]
+offset_left = -524.0
+offset_top = -222.0
+offset_right = -366.0
+offset_bottom = -192.0
+theme_override_styles/background = SubResource("StyleBoxFlat_qxhxk")
+theme_override_styles/fill = SubResource("StyleBoxFlat_osdap")
+value = 100.0
+show_percentage = false
+
+[node name="Label2" type="Label" parent="Gui/player_health"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 39.0
+offset_top = 1.0
+offset_right = 131.0
+offset_bottom = 27.0
+text = "player health"
+
+[node name="spawnpos" type="Node2D" parent="."]
+position = Vector2(-99, 123)
+
+[connection signal="timeout" from="EnemyTimer" to="." method="spawn_enemy"]

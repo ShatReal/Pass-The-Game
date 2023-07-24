@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://bv3iyr41x7r4m"]
+
+[ext_resource type="Texture2D" uid="uid://bpufkobbgchrh" path="res://assets/textures/player.png" id="1_bvokc"]
+[ext_resource type="Script" path="res://scenes/levels/baby.gd" id="1_icgrf"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_sq55n"]
+size = Vector3(43.945, 38.29, 38.685)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3v4fj"]
+size = Vector2(14.4444, 29.6296)
+
+[node name="Baby" type="StaticBody2D"]
+script = ExtResource("1_icgrf")
+
+[node name="baby" type="Sprite2D" parent="."]
+position = Vector2(6.20016, 0.200157)
+rotation = 1.5708
+scale = Vector2(2.7, 2.7)
+texture = ExtResource("1_bvokc")
+hframes = 16
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="baby"]
+modulate = Color(0.592157, 0.666667, 0.682353, 1)
+position = Vector2(4.57764e-05, 8.88889)
+rotation = -1.5708
+scale = Vector2(0.37037, 0.37037)
+mesh = SubResource("BoxMesh_sq55n")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.200157, -0.299843)
+rotation = 1.5708
+scale = Vector2(2.7, 2.7)
+shape = SubResource("RectangleShape2D_3v4fj")
+
+[node name="HealTimer" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
+
+[connection signal="timeout" from="HealTimer" to="." method="_on_heal_timer_timeout"]

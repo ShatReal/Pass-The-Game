@@ -61,12 +61,20 @@ offset_bottom = -106.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="Button" type="Button" parent="VBoxContainer"]
+[node name="Fighter" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_eru8x")
 theme_override_font_sizes/font_size = 40
 theme_override_styles/focus = SubResource("StyleBoxEmpty_5f2cb")
-text = "PLAY"
+text = "PLAY FIGHTER"
+flat = true
+
+[node name="Shooter" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_eru8x")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/focus = SubResource("StyleBoxEmpty_5f2cb")
+text = "PLAY SHOOTER"
 flat = true
 
 [node name="Button2" type="Button" parent="VBoxContainer"]
@@ -103,5 +111,15 @@ theme_override_font_sizes/font_size = 24
 text = "You are a mom. You have to find food for your kid. But without getting killed by a zombi."
 autowrap_mode = 3
 
-[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]
+[node name="Label2" type="Label" parent="."]
+self_modulate = Color(1, 0, 0, 1)
+layout_mode = 0
+offset_left = 542.0
+offset_top = 487.0
+offset_right = 629.0
+offset_bottom = 513.0
+text = "Its Possible"
+
+[connection signal="pressed" from="VBoxContainer/Fighter" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Shooter" to="." method="_on_shooter_pressed"]
 [connection signal="pressed" from="VBoxContainer/Button2" to="VBoxContainer/Button2" method="_on_pressed"]

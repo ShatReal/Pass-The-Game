@@ -82,7 +82,7 @@ func sword_stuff():
 func strike():
 	$"Sword Pivot/Sword/AnimationPlayer".play("Strike")
 	striking = true
-	await get_tree().create_timer(3).timeout
+	await get_tree().create_timer(1).timeout
 	can_attack = true
 	hit_enemies.clear()
 

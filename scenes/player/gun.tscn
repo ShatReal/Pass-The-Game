@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://7x5qraw2g1u7"]
+
+[ext_resource type="Script" path="res://scenes/player/gun.gd" id="1_bx7sh"]
+[ext_resource type="Texture2D" uid="uid://bjkwrc0jup1d6" path="res://assets/textures/Sword.png" id="2_yc1vy"]
+
+[node name="Gun" type="Node2D"]
+script = ExtResource("1_bx7sh")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="Sword" type="Sprite2D" parent="."]
+position = Vector2(43.8649, 1.73665e-06)
+rotation = 3.14159
+scale = Vector2(3.24156, 2)
+texture = ExtResource("2_yc1vy")
+
+[node name="pos" type="Node2D" parent="."]
+position = Vector2(88, 0)
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
