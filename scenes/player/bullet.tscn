@@ -1,14 +1,80 @@
-[gd_scene load_steps=3 format=3 uid="uid://dqspdl41ixfdl"]
+[gd_scene load_steps=10 format=3 uid="uid://dqspdl41ixfdl"]
 
 [ext_resource type="Script" path="res://scenes/player/bullet.gd" id="1_pe3o6"]
+[ext_resource type="Texture2D" uid="uid://depnueceps0mn" path="res://assets/textures/Bullet.png" id="2_bv5fa"]
+[ext_resource type="Texture2D" uid="uid://b34lpisi576fl" path="res://assets/textures/BulletLight.png" id="3_e2nm3"]
+[ext_resource type="AudioStream" uid="uid://cvt80vbfgk6ne" path="res://assets/sounds/fireball_explode.wav" id="4_y5str"]
+[ext_resource type="AudioStream" uid="uid://btn5idcq1f2m0" path="res://assets/sounds/fireball.wav" id="5_667mg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8jqkg"]
 size = Vector2(16, 16)
+
+[sub_resource type="Animation" id="Animation_yxcq7"]
+resource_name = "hit"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PointLight2D:enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4]
+}
+
+[sub_resource type="Animation" id="Animation_bvtt0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PointLight2D:enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ibsis"]
+_data = {
+"RESET": SubResource("Animation_bvtt0"),
+"hit": SubResource("Animation_yxcq7")
+}
 
 [node name="bullet" type="Area2D"]
 script = ExtResource("1_pe3o6")
 
 [node name="ColorRect" type="ColorRect" parent="."]
+visible = false
 offset_left = -8.0
 offset_top = -8.0
 offset_right = 8.0
@@ -22,5 +88,31 @@ shape = SubResource("RectangleShape2D_8jqkg")
 wait_time = 5.0
 autostart = true
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 99
+scale = Vector2(4, 4)
+texture = ExtResource("2_bv5fa")
+hframes = 5
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(1, 0.317647, 0.290196, 1)
+texture = ExtResource("3_e2nm3")
+texture_scale = 4.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ibsis")
+}
+
+[node name="SoundHit" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_y5str")
+volume_db = 8.0
+
+[node name="SoundIdle" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_667mg")
+volume_db = 8.0
+autoplay = true
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

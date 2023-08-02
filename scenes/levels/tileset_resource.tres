@@ -1,0 +1,37 @@
+[gd_resource type="TileSet" load_steps=7 format=3 uid="uid://cknadxyva5d37"]
+
+[ext_resource type="Texture2D" uid="uid://dmfuo1yo2ad2u" path="res://assets/textures/Grass.png" id="1_tjy80"]
+[ext_resource type="Texture2D" uid="uid://c6nk3mygp3d1q" path="res://assets/textures/Brick.png" id="2_40ktw"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_f6hkb"]
+texture = ExtResource("1_tjy80")
+0:0/size_in_atlas = Vector2i(2, 2)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_6oxn8"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yg381"]
+texture = ExtResource("2_40ktw")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/material = SubResource("CanvasItemMaterial_6oxn8")
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, -16, 16, 16, 16, 16, -16)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l411d"]
+texture = ExtResource("2_40ktw")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/modulate = Color(0.352941, 0.352941, 0.352941, 1)
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+
+[resource]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_f6hkb")
+sources/1 = SubResource("TileSetAtlasSource_yg381")
+sources/2 = SubResource("TileSetAtlasSource_l411d")

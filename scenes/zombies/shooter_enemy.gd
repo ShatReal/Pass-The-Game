@@ -8,7 +8,9 @@ func _ready():
 func _physics_process(delta):
 	if target:
 		$Gun.look_at(target.global_position)
-		$Gun.shoot()
+		
+		if $Gun.shoot():
+			$AnimationPlayer.play("attack")
 	else:
 		velocity = global_position.direction_to(Vector2(0,0))*speed
 		move_and_slide()
@@ -34,3 +36,8 @@ func get_hit(damage):
 func die():
 	get_parent().get_parent().check_enemies()
 	queue_free()
+
+
+func _on_animation_player_animation_finished(anim_name):
+	if anim_name == "attack":
+		$AnimationPlayer.play("idle")
