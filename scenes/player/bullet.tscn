@@ -107,11 +107,13 @@ libraries = {
 [node name="SoundHit" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_y5str")
 volume_db = 8.0
+bus = &"sound"
 
 [node name="SoundIdle" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_667mg")
 volume_db = 8.0
 autoplay = true
+bus = &"sound"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

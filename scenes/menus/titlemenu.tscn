@@ -1,11 +1,51 @@
-[gd_scene load_steps=6 format=3 uid="uid://45j1r4anjvkv"]
+[gd_scene load_steps=11 format=3 uid="uid://45j1r4anjvkv"]
 
 [ext_resource type="FontFile" uid="uid://ctri5frans5f2" path="res://assets/font/04B19-pA1.ttf" id="1_eru8x"]
 [ext_resource type="Script" path="res://scripts/titlemenu.gd" id="1_nwv0u"]
 [ext_resource type="AudioStream" uid="uid://bw1ulom8t0ovu" path="res://assets/music/song.mp3" id="3_vif6c"]
 [ext_resource type="Script" path="res://scripts/Button2.gd" id="4_e4uhr"]
+[ext_resource type="Texture2D" uid="uid://drvvh1nujymwk" path="res://assets/textures/Baby.png" id="5_rqguf"]
+[ext_resource type="AudioStream" uid="uid://dc86qk26ir66" path="res://assets/sounds/baby_hit.wav" id="6_31q6k"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5f2cb"]
+
+[sub_resource type="Animation" id="Animation_wf4fv"]
+resource_name = "idle"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_uval1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kyhdi"]
+_data = {
+"RESET": SubResource("Animation_uval1"),
+"idle": SubResource("Animation_wf4fv")
+}
 
 [node name="titlemenu" type="Control"]
 layout_mode = 3
@@ -32,10 +72,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -332.0
-offset_top = -47.0
-offset_right = 332.0
-offset_bottom = 47.0
+offset_left = -308.0
+offset_top = -64.0
+offset_right = 356.0
+offset_bottom = 30.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("1_eru8x")
@@ -46,6 +86,7 @@ text = "Famapocalypse"
 stream = ExtResource("3_vif6c")
 pitch_scale = 1.25
 autoplay = true
+bus = &"music"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -120,6 +161,63 @@ offset_right = 629.0
 offset_bottom = 513.0
 text = "Its Possible"
 
+[node name="DontClickMe" type="TextureButton" parent="."]
+offset_left = 256.0
+offset_top = 400.0
+offset_right = 376.0
+offset_bottom = 512.0
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="DontClickMe"]
+show_behind_parent = true
+position = Vector2(69, 72)
+stream = ExtResource("6_31q6k")
+volume_db = 4.0
+bus = &"sound"
+
+[node name="NewBaby" type="Sprite2D" parent="DontClickMe"]
+show_behind_parent = true
+position = Vector2(69, 48)
+scale = Vector2(4, 4)
+texture = ExtResource("5_rqguf")
+hframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="DontClickMe/NewBaby"]
+autoplay = "idle"
+libraries = {
+"": SubResource("AnimationLibrary_kyhdi")
+}
+
+[node name="MusicSwitch" type="Label" parent="."]
+layout_mode = 0
+offset_left = 992.0
+offset_top = 584.0
+offset_right = 1032.0
+offset_bottom = 610.0
+text = "Music"
+
+[node name="CheckButton" type="CheckButton" parent="MusicSwitch"]
+layout_mode = 0
+offset_left = 48.0
+offset_right = 92.0
+offset_bottom = 24.0
+
+[node name="SoundSwitch" type="Label" parent="."]
+layout_mode = 0
+offset_left = 992.0
+offset_top = 608.0
+offset_right = 1038.0
+offset_bottom = 634.0
+text = "Sound"
+
+[node name="CheckButton" type="CheckButton" parent="SoundSwitch"]
+layout_mode = 0
+offset_left = 48.0
+offset_right = 92.0
+offset_bottom = 24.0
+
 [connection signal="pressed" from="VBoxContainer/Fighter" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Shooter" to="." method="_on_shooter_pressed"]
 [connection signal="pressed" from="VBoxContainer/Button2" to="VBoxContainer/Button2" method="_on_pressed"]
+[connection signal="button_up" from="DontClickMe" to="." method="_on_dont_click_me_button_up"]
+[connection signal="button_up" from="MusicSwitch/CheckButton" to="." method="_on_music_button_button_up"]
+[connection signal="button_up" from="SoundSwitch/CheckButton" to="." method="_on_sound_button_button_up"]
