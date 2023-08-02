@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://daw5rck8v748p"]
+[gd_scene load_steps=10 format=3 uid="uid://daw5rck8v748p"]
 
 [ext_resource type="Script" path="res://scenes/levels/shooter_level_1.gd" id="1_mxt6t"]
 [ext_resource type="Texture2D" uid="uid://dmfuo1yo2ad2u" path="res://assets/textures/Grass.png" id="1_sh4xg"]
 [ext_resource type="PackedScene" uid="uid://bv3iyr41x7r4m" path="res://scenes/levels/baby.tscn" id="3_fsrno"]
 [ext_resource type="PackedScene" uid="uid://of23kxh4cy0a" path="res://scenes/player/shooter_player.tscn" id="4_s3uo3"]
 [ext_resource type="AudioStream" uid="uid://bw1ulom8t0ovu" path="res://assets/music/song.mp3" id="5_26rgi"]
+[ext_resource type="PackedScene" uid="uid://dmrw8iuevssks" path="res://scenes/level_objects/tree.tscn" id="6_cobja"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qxhxk"]
 
@@ -33,7 +34,25 @@ one_shot = true
 [node name="Baby" parent="." groups=["baby", "family"] instance=ExtResource("3_fsrno")]
 position = Vector2(1, -1)
 
+[node name="objects" type="Node2D" parent="."]
+
+[node name="Tree" parent="objects" instance=ExtResource("6_cobja")]
+position = Vector2(-419, -177)
+
+[node name="Tree2" parent="objects" instance=ExtResource("6_cobja")]
+position = Vector2(542, -315)
+
+[node name="Tree3" parent="objects" instance=ExtResource("6_cobja")]
+position = Vector2(976, 482)
+
+[node name="Tree4" parent="objects" instance=ExtResource("6_cobja")]
+position = Vector2(9, 652)
+
+[node name="Tree5" parent="objects" instance=ExtResource("6_cobja")]
+position = Vector2(-622, 416)
+
 [node name="shooter_player" parent="." instance=ExtResource("4_s3uo3")]
+y_sort_enabled = true
 position = Vector2(0, 85)
 
 [node name="Gui" type="CanvasLayer" parent="."]

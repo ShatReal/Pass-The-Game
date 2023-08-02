@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://gabg38ijyghl"]
+[gd_scene load_steps=28 format=3 uid="uid://gabg38ijyghl"]
 
 [ext_resource type="Script" path="res://scenes/levels/level_1.gd" id="1_rtnpd"]
 [ext_resource type="PackedScene" uid="uid://bdsamcm2uccpd" path="res://scenes/player/player.tscn" id="1_wobjh"]
@@ -12,7 +12,8 @@
 [ext_resource type="Script" path="res://scenes/levels/door.gd" id="6_ual0x"]
 [ext_resource type="Resource" uid="uid://b4psrsej0vimo" path="res://resources/medium_enemy.tres" id="6_vht25"]
 [ext_resource type="FontFile" uid="uid://ctri5frans5f2" path="res://assets/font/04B19-pA1.ttf" id="7_12he2"]
-[ext_resource type="Texture2D" uid="uid://bpufkobbgchrh" path="res://assets/textures/player.png" id="7_e3jwm"]
+[ext_resource type="Texture2D" uid="uid://drvvh1nujymwk" path="res://assets/textures/Baby.png" id="8_i4iia"]
+[ext_resource type="PackedScene" uid="uid://dmrw8iuevssks" path="res://scenes/level_objects/tree.tscn" id="9_umibc"]
 [ext_resource type="PackedScene" uid="uid://ddh2fwcik3i52" path="res://scenes/food/bread.tscn" id="14_pj6nl"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_f6hkb"]
@@ -56,11 +57,46 @@ size = Vector2(128, 20)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v2pqd"]
 size = Vector2(128, 182)
 
-[sub_resource type="BoxMesh" id="BoxMesh_plmtq"]
-size = Vector3(43.945, 38.29, 38.685)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pgru0"]
-size = Vector2(14.4444, 29.6296)
+size = Vector2(32, 29.6296)
+
+[sub_resource type="Animation" id="Animation_3jau5"]
+resource_name = "idle"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_rmqya"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pw532"]
+_data = {
+"RESET": SubResource("Animation_rmqya"),
+"idle": SubResource("Animation_3jau5")
+}
 
 [node name="Level_1" type="Node2D"]
 script = ExtResource("1_rtnpd")
@@ -127,24 +163,42 @@ text = "look after food
 to your kid"
 
 [node name="baby" type="Sprite2D" parent="map/house"]
-position = Vector2(575, 550)
-rotation = 1.5708
-scale = Vector2(2.7, 2.7)
-texture = ExtResource("7_e3jwm")
-hframes = 16
-
-[node name="MeshInstance2D" type="MeshInstance2D" parent="map/house/baby"]
-modulate = Color(0.592157, 0.666667, 0.682353, 1)
-position = Vector2(4.57764e-05, 8.88889)
-rotation = -1.5708
-scale = Vector2(0.37037, 0.37037)
-mesh = SubResource("BoxMesh_plmtq")
+position = Vector2(568, 536)
+scale = Vector2(4, 4)
+texture = ExtResource("8_i4iia")
+hframes = 2
 
 [node name="Area2D" type="StaticBody2D" parent="map/house/baby" groups=["kid"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="map/house/baby/Area2D"]
-position = Vector2(-0.185089, 2.2222)
+position = Vector2(0, 2.2222)
 shape = SubResource("RectangleShape2D_pgru0")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="map/house/baby"]
+autoplay = "idle"
+libraries = {
+"": SubResource("AnimationLibrary_pw532")
+}
+
+[node name="objects" type="Node2D" parent="map"]
+
+[node name="Tree" parent="map/objects" instance=ExtResource("9_umibc")]
+position = Vector2(232, -344)
+
+[node name="Tree2" parent="map/objects" instance=ExtResource("9_umibc")]
+position = Vector2(1440, -248)
+
+[node name="Tree3" parent="map/objects" instance=ExtResource("9_umibc")]
+position = Vector2(1312, 1000)
+
+[node name="Tree4" parent="map/objects" instance=ExtResource("9_umibc")]
+position = Vector2(-384, 1000)
+
+[node name="Tree5" parent="map/objects" instance=ExtResource("9_umibc")]
+position = Vector2(-520, 64)
+
+[node name="Tree6" parent="map/objects" instance=ExtResource("9_umibc")]
+position = Vector2(1912, 448)
 
 [node name="food" type="Node2D" parent="."]
 

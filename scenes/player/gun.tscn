@@ -11,6 +11,7 @@ wait_time = 0.2
 one_shot = true
 
 [node name="Sword" type="Sprite2D" parent="."]
+z_index = 5
 position = Vector2(43.8649, 1.73665e-06)
 rotation = 3.14159
 scale = Vector2(3.24156, 2)
