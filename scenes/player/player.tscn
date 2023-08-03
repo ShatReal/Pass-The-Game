@@ -1,9 +1,10 @@
-[gd_scene load_steps=19 format=3 uid="uid://bdsamcm2uccpd"]
+[gd_scene load_steps=20 format=3 uid="uid://bdsamcm2uccpd"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_7wwg3"]
 [ext_resource type="Texture2D" uid="uid://bpufkobbgchrh" path="res://assets/textures/player.png" id="2_urlse"]
 [ext_resource type="FontFile" uid="uid://ctri5frans5f2" path="res://assets/font/04B19-pA1.ttf" id="3_hmyt7"]
 [ext_resource type="Texture2D" uid="uid://bjkwrc0jup1d6" path="res://assets/textures/Sword.png" id="3_l5rud"]
+[ext_resource type="Texture2D" uid="uid://274w758utw7k" path="res://assets/textures/128x128-light.png" id="5_e6g6i"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bb5vq"]
 size = Vector2(92, 39)
@@ -252,6 +253,13 @@ autostart = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
 shape = SubResource("CapsuleShape2D_troll")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(0, 24)
+energy = 0.5
+shadow_enabled = true
+texture = ExtResource("5_e6g6i")
+texture_scale = 2.0
 
 [connection signal="animation_finished" from="Sword Pivot/Sword/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="starve" to="." method="_on_starve_timeout"]

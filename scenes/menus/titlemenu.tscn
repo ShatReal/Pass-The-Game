@@ -2,12 +2,27 @@
 
 [ext_resource type="FontFile" uid="uid://ctri5frans5f2" path="res://assets/font/04B19-pA1.ttf" id="1_eru8x"]
 [ext_resource type="Script" path="res://scripts/titlemenu.gd" id="1_nwv0u"]
-[ext_resource type="AudioStream" uid="uid://bw1ulom8t0ovu" path="res://assets/music/song.mp3" id="3_vif6c"]
+[ext_resource type="AudioStream" uid="uid://bq6tsa4lronov" path="res://assets/music/ozzed-super_secret_tune.mp3" id="3_fr72m"]
 [ext_resource type="Script" path="res://scripts/Button2.gd" id="4_e4uhr"]
 [ext_resource type="Texture2D" uid="uid://drvvh1nujymwk" path="res://assets/textures/Baby.png" id="5_rqguf"]
 [ext_resource type="AudioStream" uid="uid://dc86qk26ir66" path="res://assets/sounds/baby_hit.wav" id="6_31q6k"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5f2cb"]
+
+[sub_resource type="Animation" id="Animation_uval1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="Animation" id="Animation_wf4fv"]
 resource_name = "idle"
@@ -24,21 +39,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [0, 1]
-}
-
-[sub_resource type="Animation" id="Animation_uval1"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kyhdi"]
@@ -83,8 +83,8 @@ theme_override_font_sizes/font_size = 90
 text = "Famapocalypse"
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_vif6c")
-pitch_scale = 1.25
+stream = ExtResource("3_fr72m")
+volume_db = -8.0
 autoplay = true
 bus = &"music"
 
@@ -162,6 +162,7 @@ offset_bottom = 513.0
 text = "Its Possible"
 
 [node name="DontClickMe" type="TextureButton" parent="."]
+layout_mode = 0
 offset_left = 256.0
 offset_top = 400.0
 offset_right = 376.0

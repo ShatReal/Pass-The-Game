@@ -3,10 +3,10 @@
 [ext_resource type="Script" path="res://scenes/levels/shooter_level_1.gd" id="1_mxt6t"]
 [ext_resource type="PackedScene" uid="uid://bv3iyr41x7r4m" path="res://scenes/levels/baby.tscn" id="3_fsrno"]
 [ext_resource type="PackedScene" uid="uid://of23kxh4cy0a" path="res://scenes/player/shooter_player.tscn" id="4_s3uo3"]
-[ext_resource type="AudioStream" uid="uid://bw1ulom8t0ovu" path="res://assets/music/song.mp3" id="5_26rgi"]
 [ext_resource type="PackedScene" uid="uid://dmrw8iuevssks" path="res://scenes/level_objects/tree.tscn" id="6_cobja"]
 [ext_resource type="Texture2D" uid="uid://btbcrkryo8ovq" path="res://assets/textures/black_out.png" id="6_yrtrr"]
 [ext_resource type="TileSet" uid="uid://cknadxyva5d37" path="res://scenes/levels/tileset_resource.tres" id="7_mtvnm"]
+[ext_resource type="AudioStream" uid="uid://cnlpfhddwrudt" path="res://assets/music/ozzed-dont-be-a-bitch.mp3" id="7_pxxoc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qxhxk"]
 
@@ -151,7 +151,8 @@ text = "Next Lap!"
 position = Vector2(-99, 123)
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("5_26rgi")
+stream = ExtResource("7_pxxoc")
+volume_db = -8.0
 autoplay = true
 bus = &"music"
 

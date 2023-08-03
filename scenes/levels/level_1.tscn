@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://scenes/levels/level_1.gd" id="1_rtnpd"]
 [ext_resource type="PackedScene" uid="uid://bdsamcm2uccpd" path="res://scenes/player/player.tscn" id="1_wobjh"]
 [ext_resource type="PackedScene" uid="uid://do5qry4lwxkv1" path="res://scenes/zombies/zombie.tscn" id="2_hjpth"]
+[ext_resource type="AudioStream" uid="uid://cnlpfhddwrudt" path="res://assets/music/ozzed-dont-be-a-bitch.mp3" id="2_ykg4b"]
 [ext_resource type="TileSet" uid="uid://cknadxyva5d37" path="res://scenes/levels/tileset_resource.tres" id="3_e76im"]
-[ext_resource type="AudioStream" uid="uid://bw1ulom8t0ovu" path="res://assets/music/song.mp3" id="3_kvn7u"]
 [ext_resource type="Texture2D" uid="uid://c0j6l4vd0urev" path="res://assets/textures/Light Shape.svg" id="5_5f556"]
 [ext_resource type="Resource" uid="uid://ell8jceajr21" path="res://resources/tiny_enemy.tres" id="5_8653a"]
 [ext_resource type="Resource" uid="uid://carnfno10jyi7" path="res://resources/large_enemy.tres" id="5_u2uwb"]
@@ -72,7 +72,8 @@ metadata/_edit_horizontal_guides_ = [-82.0]
 color = Color(0.5, 0.5, 1, 1)
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_kvn7u")
+stream = ExtResource("2_ykg4b")
+volume_db = -8.0
 autoplay = true
 
 [node name="map" type="Node2D" parent="."]
