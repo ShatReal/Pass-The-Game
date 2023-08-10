@@ -1,7 +1,3 @@
-
-# TODO Add License for this Project
-
-
 # Used Assets
 
 ## Music
